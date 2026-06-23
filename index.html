@@ -3,245 +3,380 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>software78</title>
+    <title>surge15 — run the same loop, anywhere</title>
+    <meta name="description" content="surge15 is an iOS run-tracking app for functional training without a track. Build fixed running loops, run them anywhere, and watch your times drop. No account, fully on-device, works offline.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
+        :root {
+            --bg: #fbfaf7;
+            --surface: #ffffff;
+            --ink: #1a1a1a;
+            --muted: #6b6b6b;
+            --line: #e7e4dd;
+            --accent: #1a1a1a;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
         }
 
-        body {
-            font-family: sans-serif;
-            background: #f9f9f9;
-            color: #222;
+        html {
+            scroll-behavior: smooth;
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: 3fr 1fr;
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.65;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
         }
 
-        /* ── Left column ── */
-        .col-left {
-            background: #fff;
-            padding: 2.5rem 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.25rem;
-            border-right: 1px solid #e0e0e0;
+        .container {
+            width: 100%;
+            max-width: 880px;
+            margin: 0 auto;
+            padding: 0 1.75rem;
         }
 
-        .col-left-content {
-            flex: 1;
+        /* ── Hero ── */
+        .hero {
             display: flex;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 0 4rem;
+        }
+
+        .eyebrow {
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(2.5rem, 8vw, 4.25rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.05;
+        }
+
+        .hero .tagline {
+            margin: 1.5rem auto 0;
+            font-size: clamp(1.05rem, 3vw, 1.25rem);
+            color: var(--muted);
+            max-width: 46ch;
+            font-weight: 400;
+        }
+
+        .cta-row {
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
+            justify-content: center;
+            margin-top: 2.5rem;
         }
 
-        .logo-placeholder {
-            width: 80px;
-            height: 80px;
-            background: #ddd;
-            border-radius: 8px;
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.9rem 2rem;
+            border-radius: 2px;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 500;
+            font-size: 0.95rem;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            transition: opacity 0.2s ease;
+        }
+
+        .cta:hover {
+            opacity: 0.82;
+        }
+
+        .cta.secondary {
+            background: transparent;
+            color: var(--ink);
+            border: 1px solid var(--line);
+        }
+
+        .cta.secondary:hover {
+            opacity: 1;
+            border-color: var(--ink);
+        }
+
+        /* ── Screenshot placeholder ── */
+        .shot {
+            margin: 3.5rem auto 0;
+            width: 100%;
+            max-width: 720px;
+            aspect-ratio: 16 / 9;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 6px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.75rem;
-            color: #888;
+            color: var(--muted);
+            font-size: 0.85rem;
+            letter-spacing: 0.04em;
         }
 
-        .company-name {
-            font-size: 1.75rem;
-            font-weight: 700;
-            line-height: 1.2;
+        /* ── Section base ── */
+        section.block {
+            padding: 4.5rem 0;
+            border-top: 1px solid var(--line);
         }
 
-        .motto {
-            font-size: 1rem;
-            font-style: italic;
-            color: #555;
-            margin-top: -0.5rem;
+        .section-head {
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
-        .social-links {
-            display: flex;
-            gap: 1rem;
+        .section-head h2 {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.6rem, 5vw, 2.25rem);
+            font-weight: 500;
+            letter-spacing: -0.01em;
         }
 
-        .social-links a {
-            color: #444;
-            transition: color 0.2s;
+        .section-head p {
+            margin: 1rem auto 0;
+            color: var(--muted);
+            max-width: 52ch;
         }
 
-        .social-links a:hover {
-            color: #000;
+        /* ── Pitch / problem ── */
+        .pitch {
+            text-align: center;
         }
 
-        .social-links svg {
-            width: 28px;
-            height: 28px;
-            fill: currentColor;
-            display: block;
+        .pitch p {
+            font-family: "Fraunces", Georgia, serif;
+            font-size: clamp(1.25rem, 3.5vw, 1.7rem);
+            font-weight: 400;
+            line-height: 1.45;
+            max-width: 38ch;
+            margin: 0 auto;
+            letter-spacing: -0.01em;
         }
 
-        /* ── Right column ── */
-        .col-right {
-            padding: 0;
-            display: flex;
-            flex-direction: column;
+        .pitch p .em {
+            color: var(--ink);
+            border-bottom: 2px solid var(--line);
         }
 
-        /* Full-width cards stacked flush, no gaps */
-        .apps-grid {
-            display: flex;
-            flex-direction: column;
+        /* ── Features ── */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2.5rem 2rem;
         }
 
-        .app-card {
-            display: flex;
-            flex-direction: column;
-            text-decoration: none;
-            color: inherit;
+        .feature-card {
+            text-align: left;
         }
 
-        .app-poster {
-            position: relative;
-            aspect-ratio: 32 / 9;
-        }
-
-        .app-card:nth-child(1) .app-poster {
-            background: linear-gradient(to bottom, #f5f9ff, #dbeafe);
-        }
-
-        .app-card:nth-child(2) .app-poster {
-            background: linear-gradient(to bottom, #f8f6ff, #e9e3ff);
-        }
-
-        .app-card:nth-child(3) .app-poster {
-            background: linear-gradient(to bottom, #f4fdf6, #d6f5df);
-        }
-
-        .app-card:nth-child(4) .app-poster {
-            background: linear-gradient(to bottom, #fff9f0, #fde8c8);
-        }
-
-        .app-label {
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            padding: 1rem 1.25rem;
-        }
-
-        .app-name {
-            color: #1e293b;
+        .feature-num {
+            font-family: "Fraunces", Georgia, serif;
             font-size: 1.1rem;
-            font-weight: 700;
+            color: var(--muted);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--line);
         }
 
-        /* ── Desktop: center left column, cards fill full screen height ── */
-        @media (min-width: 769px) {
-            .col-left {
-                padding-right: 1rem;
-            }
-
-            .col-left-content {
-                justify-content: center;
-                align-items: center;
-            }
-
-            .site-footer {
-                text-align: center;
-            }
-
-            .apps-grid {
-                flex: 1;
-            }
-
-            .app-card {
-                flex: 1;
-            }
-
-            .app-poster {
-                aspect-ratio: auto;
-                flex: 1;
-            }
+        .feature-card h3 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.01em;
         }
 
-        .site-footer {
-            font-size: 0.78rem;
-            color: #aaa;
+        .feature-card p {
+            color: var(--muted);
+            font-size: 0.95rem;
         }
 
-        /* ── Mobile: single column ── */
-        @media (max-width: 768px) {
-            .grid {
-                grid-template-columns: 1fr;
-                align-content: start;
-            }
+        /* ── Exercise chips ── */
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+            max-width: 620px;
+            margin: 0 auto;
+        }
 
-            .col-left-content {
-                flex: none;
-            }
+        .chip {
+            padding: 0.55rem 1.1rem;
+            border: 1px solid var(--line);
+            border-radius: 100px;
+            background: var(--surface);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
 
-            .col-left {
-                border-right: none;
-                border-bottom: 1px solid #e0e0e0;
-                padding-bottom: 1.5rem;
-            }
+        /* ── Footer ── */
+        footer {
+            margin-top: auto;
+            border-top: 1px solid var(--line);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
 
-            .site-footer {
-                display: none;
+        footer a {
+            color: var(--ink);
+            text-decoration: none;
+            border-bottom: 1px solid var(--line);
+            padding-bottom: 1px;
+            transition: border-color 0.2s ease;
+        }
+
+        footer a:hover {
+            border-color: var(--ink);
+        }
+
+        footer .made {
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+        }
+
+        @media (max-width: 600px) {
+            .hero {
+                padding: 4rem 0 2.5rem;
+            }
+            section.block {
+                padding: 3.5rem 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="grid">
-
-        <!-- Left: identity & links -->
-        <div class="col-left">
-            <div class="col-left-content">
-                <div class="logo-placeholder">Logo</div>
-                <div class="company-name">software78</div>
-                <div class="motto">"Software For Humans"</div>
-                <div class="social-links">
-                    <a href="https://www.instagram.com/hamill_painting_wallpapering/" target="_blank" rel="noopener" aria-label="Instagram">
-                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-                    </a>
-                </div>
-            </div>
-            <footer class="site-footer">made by software78</footer>
+<section class="hero">
+    <div class="container">
+        <p class="eyebrow">surge15 · iOS</p>
+        <h1>Run the same loop,<br>anywhere.</h1>
+        <p class="tagline">A run-tracking app for functional training without a track. Build a fixed running loop, run it anywhere, and watch your times actually drop — no account, nothing leaves your phone.</p>
+        <div class="cta-row">
+            <a class="cta" href="#">Download on the App Store</a>
+            <a class="cta secondary" href="https://github.com/ivorytoast/surge15">View on GitHub</a>
         </div>
-
-        <!-- Right: apps grid -->
-        <div class="col-right">
-            <div class="apps-grid">
-                <a class="app-card" href="#">
-                    <div class="app-poster">
-                        <div class="app-label">
-                            <span class="app-name">surge15</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="app-card" href="#">
-                    <div class="app-poster">
-                        <div class="app-label">
-                            <span class="app-name">fund78 (coming soon)</span>
-                        </div>
-                    </div>
-                </a>
-                <a class="app-card" href="https://www.hamillpainting.com">
-                    <div class="app-poster">
-                        <div class="app-label">
-                            <span class="app-name">hpw</span>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-
+        <div class="shot">[ App screenshot placeholder ]</div>
     </div>
+</section>
+
+<section class="block pitch">
+    <div class="container">
+        <p>No track? No problem. surge15 keeps your route <span class="em">actually fixed</span> session to session — so every comparison is a fair one.</p>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <div class="section-head">
+            <h2>What you get</h2>
+            <p>Everything you need to train hard and measure real progress — not just another distance counter.</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-num">01</div>
+                <h3>Loops you can trust</h3>
+                <p>Build a GPS running loop with turn-by-turn directions. A 20-meter start gate and auto-stop keep every lap the exact same distance, so the numbers mean something.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">02</div>
+                <h3>Beat your best</h3>
+                <p>Run multiple laps in a single session and instantly see each split against your personal best and average. Progress you can feel, then prove.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">03</div>
+                <h3>Never miss a turn</h3>
+                <p>On-screen overlays and haptic buzzes call out every turnaround mid-run — left, right, or around — so you stay on route and on pace, eyes up.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">04</div>
+                <h3>More than running</h3>
+                <p>Log the full functional mix — lunges, burpee broad jumps, rows, wall balls, and rest — each tracked in its own units alongside your runs.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">05</div>
+                <h3>Plan once, repeat</h3>
+                <p>Build reusable workout templates — "Run 400m, Lunge 24m, BBJ 10 reps" — and turn any plan into a tracked day with a built-in checklist.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">06</div>
+                <h3>Your history, organized</h3>
+                <p>Browse past sessions in a calendar grouped by morning, afternoon, and evening, with active-day markers and quick summaries at a glance.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <div class="section-head">
+            <h2>Train the whole circuit</h2>
+            <p>Six exercise types, each with the right units — so a full functional session lives in one place.</p>
+        </div>
+        <div class="chips">
+            <span class="chip">GPS Run</span>
+            <span class="chip">Lunges</span>
+            <span class="chip">Burpee Broad Jumps</span>
+            <span class="chip">Row</span>
+            <span class="chip">Wall Balls</span>
+            <span class="chip">Rest</span>
+        </div>
+    </div>
+</section>
+
+<section class="block">
+    <div class="container">
+        <div class="section-head">
+            <h2>Yours, and only yours</h2>
+            <p>surge15 is private by design — not because of a policy, but because your data never leaves your phone in the first place.</p>
+        </div>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-num">A</div>
+                <h3>No account needed</h3>
+                <p>No sign-up, no email, no password. Download the app and start training — there's nothing to log in to and no profile to create.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">B</div>
+                <h3>Everything stays on-device</h3>
+                <p>Your routes, sessions, and times live entirely on your phone. Nothing is uploaded, synced, or stored on our servers — because there are no servers.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-num">C</div>
+                <h3>GPS, and nothing else</h3>
+                <p>The only data the app uses is GPS, purely to measure your run. We never store it and never tie it to you — there's no "you" for us to track.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="container">
+        <a href="privacy.html">Privacy Policy</a>
+        <div class="made">surge15 · Built for athletes training without a track</div>
+        <div class="made"><a href="https://www.software78.com">made by software78</a></div>
+    </div>
+</footer>
 </body>
 </html>
