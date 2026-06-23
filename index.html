@@ -3,30 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>surge15 — run the same loop, anywhere</title>
+    <title>surge15 — your block. your track. surge.</title>
     <meta name="description" content="surge15 is an iOS run-tracking app for functional training without a track. Build fixed running loops, run them anywhere, and watch your times drop. No account, fully on-device, works offline.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #fbfaf7;
-            --surface: #ffffff;
-            --ink: #1a1a1a;
-            --muted: #6b6b6b;
-            --line: #e7e4dd;
-            --accent: #1a1a1a;
+            --navy: #1e3a8a;
+            --navy-deep: #0e1430;
+            --navy-deeper: #070a18;
+            --blue: #2563eb;
+            --blue-light: #60a5fa;
+            --ink: #0f172a;
+            --muted: #5b6577;
+            --muted-light: #9aa6bd;
+            --bg: #ffffff;
+            --bg-soft: #f5f8fd;
+            --line: #e6ecf5;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -41,237 +39,307 @@
 
         .container {
             width: 100%;
-            max-width: 880px;
+            max-width: 920px;
             margin: 0 auto;
             padding: 0 1.75rem;
         }
 
+        .eyebrow {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.74rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--blue-light);
+        }
+
         /* ── Hero ── */
         .hero {
+            position: relative;
+            background: linear-gradient(165deg, #0e1430 0%, #15235a 55%, #1e3a8a 100%);
+            color: #fff;
+            overflow: hidden;
+            text-align: center;
+            padding: 5rem 0 5.5rem;
+        }
+
+        /* GPS dotted trail decoration, anchored to the hero floor */
+        .hero-trail {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 220px;
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        .hero .container { position: relative; z-index: 1; }
+
+        /* App-icon lockup */
+        .app-icon {
+            width: 96px;
+            height: 96px;
+            border-radius: 23px;
+            margin: 1.7rem auto 1.5rem;
+            background: #1e3a8a;
+            box-shadow: 0 18px 50px -12px rgba(0, 0, 0, 0.65), inset 0 1px 0 rgba(255,255,255,0.08);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            text-align: center;
-            padding: 6rem 0 4rem;
+            gap: 5px;
         }
 
-        .eyebrow {
-            font-size: 0.8rem;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--muted);
-            margin-bottom: 1.5rem;
+        .app-icon .surge-line { width: 56px; height: 13px; display: block; }
+
+        .app-icon .num {
+            font-weight: 900;
+            font-size: 34px;
+            line-height: 1;
+            letter-spacing: -0.04em;
+            color: #fff;
         }
 
         .hero h1 {
-            font-family: "Fraunces", Georgia, serif;
-            font-size: clamp(2.5rem, 8vw, 4.25rem);
-            font-weight: 500;
-            letter-spacing: -0.02em;
-            line-height: 1.05;
+            font-size: clamp(2.6rem, 8.5vw, 4.75rem);
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            line-height: 0.98;
+            margin-top: 0;
         }
 
+        .hero h1 .accent { color: var(--blue-light); }
+
         .hero .tagline {
-            margin: 1.5rem auto 0;
-            font-size: clamp(1.05rem, 3vw, 1.25rem);
-            color: var(--muted);
-            max-width: 46ch;
+            margin: 1.6rem auto 0;
+            font-size: clamp(1.02rem, 2.6vw, 1.2rem);
+            color: #c2cde4;
+            max-width: 48ch;
             font-weight: 400;
         }
 
         .cta-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 1rem;
+            gap: 0.9rem;
             justify-content: center;
-            margin-top: 2.5rem;
+            margin-top: 2.6rem;
         }
 
         .cta {
             display: inline-flex;
             align-items: center;
-            padding: 0.9rem 2rem;
-            border-radius: 2px;
-            background: var(--accent);
-            color: #fff;
-            font-weight: 500;
-            font-size: 0.95rem;
-            letter-spacing: 0.02em;
+            padding: 0.95rem 2.1rem;
+            border-radius: 12px;
+            background: #fff;
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 0.96rem;
+            letter-spacing: -0.01em;
             text-decoration: none;
-            transition: opacity 0.2s ease;
+            transition: transform 0.18s ease, box-shadow 0.18s ease;
+            box-shadow: 0 8px 24px -8px rgba(0,0,0,0.5);
         }
 
-        .cta:hover {
-            opacity: 0.82;
-        }
-
-        .cta.secondary {
-            background: transparent;
-            color: var(--ink);
-            border: 1px solid var(--line);
-        }
-
-        .cta.secondary:hover {
-            opacity: 1;
-            border-color: var(--ink);
-        }
+        .cta:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -8px rgba(0,0,0,0.55); }
 
         /* ── Screenshot placeholder ── */
         .shot {
             margin: 3.5rem auto 0;
             width: 100%;
-            max-width: 720px;
+            max-width: 740px;
             aspect-ratio: 16 / 9;
-            background: var(--surface);
-            border: 1px solid var(--line);
-            border-radius: 6px;
+            background: rgba(255,255,255,0.04);
+            border: 1.5px dashed rgba(255,255,255,0.22);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--muted);
-            font-size: 0.85rem;
+            color: #9fb0d4;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.82rem;
             letter-spacing: 0.04em;
+            position: relative;
+            z-index: 1;
         }
 
         /* ── Section base ── */
         section.block {
-            padding: 4.5rem 0;
+            padding: 5rem 0;
             border-top: 1px solid var(--line);
         }
 
-        .section-head {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
+        section.block.soft { background: var(--bg-soft); }
+
+        .section-head { text-align: center; margin-bottom: 3.25rem; }
 
         .section-head h2 {
-            font-family: "Fraunces", Georgia, serif;
-            font-size: clamp(1.6rem, 5vw, 2.25rem);
-            font-weight: 500;
-            letter-spacing: -0.01em;
+            font-size: clamp(1.7rem, 5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--ink);
         }
 
         .section-head p {
             margin: 1rem auto 0;
             color: var(--muted);
-            max-width: 52ch;
+            max-width: 54ch;
         }
 
         /* ── Pitch / problem ── */
-        .pitch {
-            text-align: center;
-        }
+        .pitch { text-align: center; }
 
         .pitch p {
-            font-family: "Fraunces", Georgia, serif;
-            font-size: clamp(1.25rem, 3.5vw, 1.7rem);
-            font-weight: 400;
-            line-height: 1.45;
-            max-width: 38ch;
+            font-size: clamp(1.4rem, 4vw, 2.1rem);
+            font-weight: 700;
+            line-height: 1.32;
+            max-width: 22ch;
             margin: 0 auto;
-            letter-spacing: -0.01em;
+            letter-spacing: -0.025em;
+            color: var(--ink);
         }
 
         .pitch p .em {
-            color: var(--ink);
-            border-bottom: 2px solid var(--line);
+            color: var(--blue);
+            background: linear-gradient(transparent 62%, rgba(96,165,250,0.28) 62%);
         }
 
         /* ── Features ── */
         .feature-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 2.5rem 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2.75rem 2.25rem;
         }
 
-        .feature-card {
-            text-align: left;
-        }
+        .feature-card { text-align: left; }
 
         .feature-num {
-            font-family: "Fraunces", Georgia, serif;
-            font-size: 1.1rem;
-            color: var(--muted);
-            padding-bottom: 0.75rem;
-            margin-bottom: 1rem;
-            border-bottom: 1px solid var(--line);
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--blue);
+            letter-spacing: 0.06em;
+            padding-bottom: 0.85rem;
+            margin-bottom: 1.1rem;
+            border-bottom: 1.5px solid var(--line);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .feature-num::before {
+            content: "";
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: var(--blue-light);
+            flex: none;
         }
 
         .feature-card h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            letter-spacing: -0.01em;
+            font-size: 1.18rem;
+            font-weight: 700;
+            margin-bottom: 0.55rem;
+            letter-spacing: -0.02em;
+            color: var(--ink);
         }
 
-        .feature-card p {
-            color: var(--muted);
-            font-size: 0.95rem;
-        }
+        .feature-card p { color: var(--muted); font-size: 0.96rem; }
 
         /* ── Exercise chips ── */
         .chips {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.7rem;
             justify-content: center;
-            max-width: 620px;
+            max-width: 640px;
             margin: 0 auto;
         }
 
         .chip {
-            padding: 0.55rem 1.1rem;
-            border: 1px solid var(--line);
+            padding: 0.6rem 1.2rem;
+            border: 1.5px solid #d3e0f5;
             border-radius: 100px;
-            background: var(--surface);
-            font-size: 0.9rem;
-            font-weight: 500;
+            background: #fff;
+            color: var(--navy);
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        /* ── Screenshot gallery ── */
+        .shots {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .phone {
+            aspect-ratio: 9 / 19.5;
+            border-radius: 26px;
+            background:
+                repeating-linear-gradient(135deg, #eef3fb 0 10px, #f6f9fe 10px 20px);
+            border: 1.5px solid #dbe5f4;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 1.1rem;
+            color: #9aa6bd;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.72rem;
+            letter-spacing: 0.04em;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .shots { grid-template-columns: 1fr; max-width: 280px; }
         }
 
         /* ── Footer ── */
         footer {
             margin-top: auto;
-            border-top: 1px solid var(--line);
-            padding: 2rem 0;
+            background: var(--navy-deep);
+            color: #aab6d2;
+            padding: 3rem 0 2.5rem;
             text-align: center;
-            color: var(--muted);
             font-size: 0.9rem;
         }
 
         footer a {
-            color: var(--ink);
+            color: #fff;
             text-decoration: none;
-            border-bottom: 1px solid var(--line);
+            border-bottom: 1px solid rgba(255,255,255,0.25);
             padding-bottom: 1px;
             transition: border-color 0.2s ease;
         }
 
-        footer a:hover {
-            border-color: var(--ink);
-        }
+        footer a:hover { border-color: #fff; }
 
-        footer .made {
-            margin-top: 0.6rem;
-            font-size: 0.85rem;
-        }
+        footer .made { margin-top: 0.7rem; font-size: 0.85rem; color: #8190b0; }
 
         @media (max-width: 600px) {
-            .hero {
-                padding: 4rem 0 2.5rem;
-            }
-            section.block {
-                padding: 3.5rem 0;
-            }
+            .hero { padding: 3.5rem 0 4rem; }
+            section.block { padding: 3.75rem 0; }
         }
     </style>
 </head>
 <body>
 <section class="hero">
+    <svg class="hero-trail" viewBox="0 0 1200 220" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+        <path d="M-20 150 C 180 90, 320 200, 520 140 S 880 70, 1100 130 1240 110 1240 110"
+              fill="none" stroke="#60a5fa" stroke-width="3" stroke-linecap="round" stroke-dasharray="1 12" opacity="0.6"/>
+        <circle cx="300" cy="158" r="5" fill="#60a5fa" opacity="0.8"/>
+        <circle cx="760" cy="92" r="5" fill="#60a5fa" opacity="0.8"/>
+    </svg>
     <div class="container">
         <p class="eyebrow">surge15 · iOS</p>
-        <h1>Run the same loop,<br>anywhere.</h1>
+        <div class="app-icon" aria-label="surge15 app icon">
+            <svg class="surge-line" viewBox="0 0 64 14" xmlns="http://www.w3.org/2000/svg"><polyline points="4,11 18,9 30,3 42,6 60,4" fill="none" stroke="#60a5fa" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span class="num">15</span>
+        </div>
+        <h1>Anywhere.<br>Your track. <span class="accent">Surge.</span></h1>
         <p class="tagline">A run-tracking app for functional training without a track. Build a fixed running loop, run it anywhere, and watch your times actually drop — no account, nothing leaves your phone.</p>
         <div class="cta-row">
             <a class="cta" href="#">Download on the App Store</a>
@@ -280,7 +348,7 @@
     </div>
 </section>
 
-<section class="block pitch">
+<section class="block soft pitch">
     <div class="container">
         <p>No track? No problem. surge15 keeps your route <span class="em">actually fixed</span> session to session — so every comparison is a fair one.</p>
     </div>
@@ -327,19 +395,16 @@
     </div>
 </section>
 
-<section class="block">
+<section class="block soft">
     <div class="container">
         <div class="section-head">
-            <h2>Train the whole circuit</h2>
-            <p>Six exercise types, each with the right units — so a full functional session lives in one place.</p>
+            <h2>See it in motion</h2>
+            <p>From building a loop to chasing your splits mid-run — here&rsquo;s what training with surge15 looks like.</p>
         </div>
-        <div class="chips">
-            <span class="chip">GPS Run</span>
-            <span class="chip">Lunges</span>
-            <span class="chip">Burpee Broad Jumps</span>
-            <span class="chip">Row</span>
-            <span class="chip">Wall Balls</span>
-            <span class="chip">Rest</span>
+        <div class="shots">
+            <div class="phone">screenshot — build a loop</div>
+            <div class="phone">screenshot — live run + splits</div>
+            <div class="phone">screenshot — session history</div>
         </div>
     </div>
 </section>
@@ -372,8 +437,8 @@
 
 <footer>
     <div class="container">
-        <a href="privacy.html">Privacy Policy</a>
-        <div class="made">surge15 · Built for athletes training without a track</div>
+        <a href="privacy.html">Privacy Policy</a> &nbsp;·&nbsp; <a href="support.html">Support</a>
+        <div class="made">Anywhere. Your track. Surge.</div>
         <div class="made"><a href="https://www.software78.com">made by software78</a></div>
     </div>
 </footer>

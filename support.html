@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support — surge15</title>
+    <meta name="description" content="Help and support for surge15 — the on-device run-tracking app for functional training without a track.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1e3a8a;
+            --navy-deep: #0e1430;
+            --blue: #2563eb;
+            --blue-light: #60a5fa;
+            --ink: #0f172a;
+            --muted: #5b6577;
+            --bg: #ffffff;
+            --bg-soft: #f5f8fd;
+            --line: #e6ecf5;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--ink);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 720px;
+            margin: 0 auto;
+            padding: 0 1.75rem;
+        }
+
+        main { flex: 1; padding: 3.5rem 0 4.5rem; }
+
+        .back {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-bottom: 2.75rem;
+            color: var(--blue);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: gap 0.18s ease;
+        }
+
+        .back:hover { gap: 0.7rem; }
+
+        .eyebrow {
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.72rem;
+            font-weight: 500;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--blue-light);
+            margin-bottom: 0.6rem;
+        }
+
+        h1 {
+            font-size: clamp(2.1rem, 6vw, 2.9rem);
+            font-weight: 800;
+            letter-spacing: -0.035em;
+            line-height: 1.05;
+            margin-bottom: 0.6rem;
+        }
+
+        .lede {
+            color: var(--muted);
+            font-size: 1.05rem;
+            max-width: 54ch;
+            margin-bottom: 2.5rem;
+        }
+
+        /* Contact card */
+        .contact {
+            background: linear-gradient(160deg, #15235a, #1e3a8a);
+            color: #fff;
+            border-radius: 16px;
+            padding: 2rem 2rem 2.1rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .contact h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.4rem;
+        }
+
+        .contact p { color: #c2cde4; font-size: 0.97rem; margin-bottom: 1.4rem; }
+
+        .contact .email-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.85rem 1.8rem;
+            border-radius: 11px;
+            background: #fff;
+            color: var(--navy);
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: -0.01em;
+            text-decoration: none;
+            transition: transform 0.18s ease;
+        }
+
+        .contact .email-btn:hover { transform: translateY(-2px); }
+
+        .contact .response {
+            margin-top: 1.1rem;
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.78rem;
+            color: #9fb0d4;
+            letter-spacing: 0.02em;
+        }
+
+        /* FAQ */
+        .faq-head {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1.75rem;
+        }
+
+        .faq-item {
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .faq-item:last-child { border-bottom: 1px solid var(--line); }
+
+        .faq-item h3 {
+            font-size: 1.08rem;
+            font-weight: 700;
+            letter-spacing: -0.015em;
+            color: var(--navy);
+            margin-bottom: 0.4rem;
+        }
+
+        .faq-item p { color: #3d4658; font-size: 0.97rem; }
+
+        .faq-item a { color: var(--blue); }
+
+        footer {
+            margin-top: auto;
+            background: var(--navy-deep);
+            color: #8190b0;
+            padding: 2.5rem 0;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        footer a {
+            color: #fff;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(255,255,255,0.25);
+            padding-bottom: 1px;
+        }
+
+        footer .made { margin-top: 0.6rem; }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="container">
+            <a class="back" href="index.html">← Back</a>
+            <p class="eyebrow">surge15 · iOS</p>
+            <h1>Support</h1>
+            <p class="lede">Questions, bug reports, or feature ideas — we read every message. Here are the quick answers, and a direct line if you need one.</p>
+
+            <div class="contact">
+                <h2>Get in touch</h2>
+                <p>The fastest way to reach us is email. Include your iOS version and a short description of what happened, and we'll help you out.</p>
+                <a class="email-btn" href="mailto:anthonyhamill3853@gmail.com?subject=surge15%20support">Email support</a>
+                <div class="response">anthonyhamill3853@gmail.com · we aim to reply within a few days</div>
+            </div>
+
+            <h2 class="faq-head">Frequently asked</h2>
+
+            <div class="faq-item">
+                <h3>How do I build a running loop?</h3>
+                <p>Create a new loop and map it with turn-by-turn points. surge15 adds a 20-meter start gate and auto-stop so every lap covers the exact same distance — that's what makes your times comparable session to session.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Do I need an account?</h3>
+                <p>No. There's no sign-up, email, or password. Download the app and start training — there's nothing to log in to and no profile to create.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Does it work offline?</h3>
+                <p>Yes. Other than your device acquiring a GPS signal, surge15 needs no internet connection. You can build routes, record sessions, and review history with no connection at all.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>My distance or splits look off — what can I do?</h3>
+                <p>GPS accuracy depends on your surroundings. For the best results, let your phone get a solid signal before starting, and run in open areas away from tall buildings or dense tree cover. Re-running the same fixed loop keeps comparisons fair even if absolute distance drifts slightly.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Can I track exercises other than running?</h3>
+                <p>Yes. Log the full functional mix — lunges, burpee broad jumps, rows, wall balls, rest, and more — each in its own units, alongside your runs. Build reusable templates and turn any plan into a tracked day with a checklist.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>Where is my data stored, and how do I delete it?</h3>
+                <p>Everything lives only on your phone — nothing is uploaded or synced. To remove your data, delete it within the app or uninstall surge15; once it's gone, there are no copies held anywhere else. See our <a href="privacy.html">Privacy Policy</a> for details.</p>
+            </div>
+
+            <div class="faq-item">
+                <h3>How do I request a feature or report a bug?</h3>
+                <p>Email us at <a href="mailto:anthonyhamill3853@gmail.com?subject=surge15%20feedback">anthonyhamill3853@gmail.com</a>. Feature ideas are genuinely welcome — a lot of the app comes from runner feedback.</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <a href="privacy.html">Privacy Policy</a>
+            <div class="made">Anywhere. Your track. Surge.</div>
+        </div>
+    </footer>
+</body>
+</html>
