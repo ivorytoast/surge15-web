@@ -1,0 +1,13 @@
+{
+  "name": "surge15-web",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev"
+  },
+  "dependencies": {
+    "@neondatabase/serverless": "^0.10.4",
+    "express": "^4.21.2"
+  }
+}
