@@ -277,6 +277,8 @@
         }
 
         .phone {
+            position: relative;
+            overflow: hidden;
             aspect-ratio: 9 / 19.5;
             border-radius: 26px;
             background:
@@ -291,6 +293,14 @@
             font-size: 0.72rem;
             letter-spacing: 0.04em;
             text-align: center;
+        }
+
+        .phone img {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         @media (max-width: 600px) {
@@ -402,7 +412,7 @@
             <p>From building a loop to chasing your splits mid-run — here&rsquo;s what training with surge15 looks like.</p>
         </div>
         <div class="shots">
-            <div class="phone">screenshot — build a loop</div>
+            <div class="phone"><img src="/images/surge-plans-3a.png" alt="Building a running loop in surge15"></div>
             <div class="phone">screenshot — live run + splits</div>
             <div class="phone">screenshot — session history</div>
         </div>
