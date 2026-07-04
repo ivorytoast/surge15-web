@@ -146,20 +146,13 @@
 
         /* ── Screenshot placeholder ── */
         .shot {
+            display: block;
             margin: 3.5rem auto 0;
             width: 100%;
             max-width: 740px;
-            aspect-ratio: 16 / 9;
-            background: rgba(255,255,255,0.04);
-            border: 1.5px dashed rgba(255,255,255,0.22);
+            height: auto;
             border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #9fb0d4;
-            font-family: "JetBrains Mono", monospace;
-            font-size: 0.82rem;
-            letter-spacing: 0.04em;
+            box-shadow: 0 24px 60px -18px rgba(0,0,0,0.6);
             position: relative;
             z-index: 1;
         }
@@ -354,7 +347,7 @@
         <div class="cta-row">
             <a class="cta" href="#">Download on the App Store</a>
         </div>
-        <div class="shot">[ App screenshot placeholder ]</div>
+        <img class="shot" src="images/surge-hero-7a.png" alt="surge15 app screenshot" />
     </div>
 </section>
 
@@ -414,7 +407,7 @@
         <div class="shots">
             <div class="phone"><img src="/images/surge-routes-build.png" alt="surge15 route building marketing screenshot"></div>
             <div class="phone"><img src="/images/surge-plans-3a.png" alt="surge15 plan building marketing screenshot"></div>
-            <div class="phone">screenshot — session history</div>
+            <div class="phone"><img src="/images/surge-run-the-plan-v2.png" alt="surge15 executing workout plan screenshot"></div>
         </div>
     </div>
 </section>
